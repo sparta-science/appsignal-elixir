@@ -27,7 +27,11 @@ defmodule Appsignal.Config do
   @spec initialize() :: :ok | {:error, :invalid_config}
   def initialize() do
     system_config = load_from_system()
-    app_config = Application.get_env(:appsignal, :config, []) |> coerce_map
+
+    app_config = :appsignal
+    |> Application.get_env(:config, [])
+    |> coerce_map
+
     env_config = load_from_environment()
 
     config = @default_config
@@ -167,6 +171,7 @@ defmodule Appsignal.Config do
     write_to_environment(config)
   end
 
+  # credo:disable-for-next-line Credo.Check.Refactor.CyclomaticComplexity
   defp write_to_environment(config) do
     reset_environment_config!()
 
