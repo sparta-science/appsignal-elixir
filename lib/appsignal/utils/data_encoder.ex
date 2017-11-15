@@ -31,7 +31,7 @@ defmodule Appsignal.Utils.DataEncoder do
   def encode(resource, {key, value}) when is_binary(value) do
     Nif.data_set_string(resource, key, value)
   end
-  def encode(resource, {key, value}) when is_integer(value) and value >= 9223372036854775808 do
+  def encode(resource, {key, value}) when is_integer(value) and value >= 9_223_372_036_854_775_808 do
     Nif.data_set_string(resource, key, "bigint:#{value}")
   end
   def encode(resource, {key, value}) when is_integer(value) do
@@ -61,7 +61,7 @@ defmodule Appsignal.Utils.DataEncoder do
   def encode(resource, value) when is_binary(value) do
     Nif.data_set_string(resource, value)
   end
-  def encode(resource, value) when is_integer(value) and value >= 9223372036854775808 do
+  def encode(resource, value) when is_integer(value) and value >= 9_223_372_036_854_775_808  do
     Nif.data_set_string(resource, "bigint:#{value}")
   end
   def encode(resource, value) when is_integer(value) do
