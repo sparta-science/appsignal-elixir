@@ -25,9 +25,11 @@ defmodule Appsignal.Diagnose.Paths do
                 %{writable: true}
               _ -> %{}
             end
+            # credo:disable-for-next-line Credo.Check.Refactor.PipeChainStart
             |> Map.merge(%{ownership: %{uid: uid}})
           {:error, reason} -> %{error: reason}
         end
+        # credo:disable-for-next-line Credo.Check.Refactor.PipeChainStart
         |> Map.merge(%{exists: true})
       else
         %{}

@@ -183,6 +183,7 @@ defmodule Mix.Tasks.Appsignal.Install do
       case file_contains?(env_file, active_content) do
         :ok -> IO.puts "Success! (Already active?)"
         {:error, :not_found} ->
+          # credo:disable-for-next-line Credo.Check.Refactor.Nesting
           case append_to_file(env_file, active_content) do
             :ok -> IO.puts "Success!"
             {:error, reason} ->
