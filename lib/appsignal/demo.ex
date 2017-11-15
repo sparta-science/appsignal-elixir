@@ -42,10 +42,8 @@ defmodule Appsignal.Demo do
   end
 
   defp create_demo_transaction do
-    Appsignal.Transaction.start(
-      Appsignal.Transaction.generate_id,
-      :http_request
-    )
+    Appsignal.Transaction.generate_id
+    |> Appsignal.Transaction.start(:http_request)
     |> Appsignal.Transaction.set_action("DemoController#hello")
     |> Appsignal.Transaction.set_meta_data("demo_sample", "true")
     |> Appsignal.Transaction.set_sample_data(
