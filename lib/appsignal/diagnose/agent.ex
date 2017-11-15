@@ -59,7 +59,7 @@ defmodule Appsignal.Diagnose.Agent do
         "config" => %{
           "valid" => %{
             :label => "Extension config",
-            :values => %{ true => "valid", false => "invalid" }
+            :values => %{true => "valid", false => "invalid"}
           }
         }
       },
@@ -67,25 +67,25 @@ defmodule Appsignal.Diagnose.Agent do
         "boot" => %{
           "started" => %{
             :label => "Agent started",
-            :values => %{ true => "started", false => "not started" }
+            :values => %{true => "started", false => "not started"}
           }
         },
         "config" => %{
           "valid" => %{
             :label => "Agent config",
-            :values => %{ true => "valid", false => "invalid" }
+            :values => %{true => "valid", false => "invalid"}
           }
         },
         "logger" => %{
           "started" => %{
             :label => "Agent logger",
-            :values => %{ true => "started", false => "not started" }
+            :values => %{true => "started", false => "not started"}
           }
         },
         "lock_path" => %{
           "created" => %{
             :label => "Agent lock path",
-            :values => %{ true => "writable", false => "not writable" }
+            :values => %{true => "writable", false => "not writable"}
           }
         }
       }
