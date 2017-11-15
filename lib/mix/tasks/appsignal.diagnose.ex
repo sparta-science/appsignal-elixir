@@ -86,7 +86,7 @@ defmodule Mix.Tasks.Appsignal.Diagnose do
     IO.puts "  Architecture: #{host_report[:architecture]}"
     IO.puts "  Elixir version: #{host_report[:language_version]}"
     IO.puts "  OTP version: #{host_report[:otp_version]}"
-    root_user = if (host_report[:root]), do: "yes (not recommended)", else: "no"
+    root_user = if host_report[:root], do: "yes (not recommended)", else: "no"
     IO.puts "  root user: #{root_user}"
     if host_report[:heroku] do
       IO.puts "  Heroku: yes"
