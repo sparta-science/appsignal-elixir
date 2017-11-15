@@ -97,7 +97,7 @@ defmodule Appsignal.ErrorHandler do
   end
   defp stacktrace?(_), do: false
 
-  defp stacktrace_line?({_,_,_,[file: _, line: _]}), do: true
+  defp stacktrace_line?({_, _, _, [file: _, line: _]}), do: true
   defp stacktrace_line?(_), do: false
 
   @doc false
