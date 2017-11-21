@@ -229,8 +229,9 @@ defmodule Appsignal.Config do
   def reset_environment_config! do
     System.get_env
     |> Enum.filter(
-      fn({"_APPSIGNAL_" <> _, _}) -> true;
-      (_) -> false end
+      fn {"_APPSIGNAL_" <> _, _} -> true
+         _ -> false
+      end
     ) |> Enum.each(fn({key, _}) ->
       System.delete_env(key)
     end)
@@ -242,9 +243,10 @@ defmodule Appsignal.Config do
   def get_system_env do
     System.get_env
     |> Enum.filter(
-    fn({"APPSIGNAL_" <> _, _}) -> true;
-      (_) -> false end)
-      |> Enum.into(%{})
+      fn {"APPSIGNAL_" <> _, _}  -> true
+         _ -> false
+      end
+    ) |> Enum.into(%{})
   end
 
   # When you use Appsignal.Config you get a handy config macro which
