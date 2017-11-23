@@ -67,21 +67,21 @@ defmodule Appsignal.Instrumentation.Decorators do
     decorate_event("", body, context)
   end
 
-  defp decorate_event(postfix, body, context) do
+  defp decorate_event(postfix, body, %{name: name, module: module}) do
     quote do
       Appsignal.Instrumentation.Helpers.instrument(
         self(),
-        unquote("#{context.name}#{postfix}"),
-        unquote("#{context.module}.#{context.name}"),
+        unquote("#{name}#{postfix}"),
+        unquote("#{module}.#{name}"),
         fn -> unquote(body) end)
     end
   end
 
   @doc false
-  def channel_action(body, %{args: [action, _payload, socket]} = context) do
+  def channel_action(body, %{args: [action, _payload, socket], module: module}) do
     quote do
       Appsignal.Phoenix.Channel.channel_action(
-        unquote(context.module),
+        unquote(module),
         unquote(action),
         unquote(socket),
         fn -> unquote(body) end
