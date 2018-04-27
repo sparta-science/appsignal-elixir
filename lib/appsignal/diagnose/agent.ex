@@ -5,7 +5,7 @@ defmodule Appsignal.Diagnose.Agent do
     if @nif.loaded? do
       System.put_env("_APPSIGNAL_DIAGNOSE", "true")
       report_string = @nif.diagnose
-      report = case Poison.decode(report_string) do
+      report = case Jason.decode(report_string) do
         {:ok, report} -> {:ok, report}
         {:error, _} -> {:error, report_string}
       end

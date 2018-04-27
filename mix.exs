@@ -90,7 +90,7 @@ defmodule Appsignal.Mixfile do
   defp deps do
     [
       {:httpoison, "~> 0.11 or ~> 1.0"},
-      {:poison, ">= 1.3.0"},
+      {:jason, "~> 1.0"},
       {:decorator, "~> 1.2.3"},
       {:plug, ">= 1.1.0", optional: true},
       {:phoenix, ">= 1.2.0", optional: true, only: [:prod, :test_phoenix, :dev]},
