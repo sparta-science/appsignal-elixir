@@ -218,6 +218,11 @@ defmodule Appsignal.ConfigTest do
         == default_configuration() |> Map.put(:working_dir_path, "/tmp/appsignal")
     end
 
+    test "working_directory_path" do
+      assert with_config(%{working_directory_path: "/tmp/appsignal"}, &init_config/0)
+        == default_configuration() |> Map.put(:working_directory_path, "/tmp/appsignal")
+    end
+
     test "request_headers" do
       assert with_config(%{request_headers: ~w(accept accept-charset)}, &init_config/0)
         == default_configuration() |> Map.put(:request_headers, ~w(accept accept-charset))
@@ -401,6 +406,13 @@ defmodule Appsignal.ConfigTest do
       ) == default_configuration() |> Map.put(:working_dir_path, "/tmp/appsignal")
     end
 
+    test "working_directory_path" do
+      assert with_env(
+        %{"APPSIGNAL_WORKING_DIRECTORY_PATH" => "/tmp/appsignal"},
+        &init_config/0
+      ) == default_configuration() |> Map.put(:working_directory_path, "/tmp/appsignal")
+    end
+
     test "request_headers" do
       assert with_env(
         %{"APPSIGNAL_REQUEST_HEADERS" => "accept,accept-charset"},
@@ -485,6 +497,7 @@ defmodule Appsignal.ConfigTest do
       assert System.get_env("_APPSIGNAL_IGNORE_NAMESPACES") == ""
       assert System.get_env("_APPSIGNAL_LOG_FILE_PATH") == ""
       assert System.get_env("_APPSIGNAL_WORKING_DIR_PATH") == ""
+      assert System.get_env("_APPSIGNAL_WORKING_DIRECTORY_PATH") == ""
       assert System.get_env("_APPSIGNAL_RUNNING_IN_CONTAINER") == ""
       assert System.get_env("_APP_REVISION") == ""
     end
@@ -526,6 +539,7 @@ defmodule Appsignal.ConfigTest do
         name: "AppSignal test suite app",
         running_in_container: false,
         working_dir_path: "/tmp/appsignal",
+        working_directory_path: "/tmp/appsignal",
         files_world_accessible: false,
         revision: "03bd9e"
       }, fn() ->
@@ -552,6 +566,7 @@ defmodule Appsignal.ConfigTest do
         assert System.get_env("_APPSIGNAL_RUNNING_IN_CONTAINER") == "false"
         assert System.get_env("_APPSIGNAL_SEND_PARAMS") == "true"
         assert System.get_env("_APPSIGNAL_WORKING_DIR_PATH") == "/tmp/appsignal"
+        assert System.get_env("_APPSIGNAL_WORKING_DIRECTORY_PATH") == "/tmp/appsignal"
         assert System.get_env("_APPSIGNAL_FILES_WORLD_ACCESSIBLE") == "false"
         assert System.get_env("_APP_REVISION") == "03bd9e"
       end)
