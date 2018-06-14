@@ -1,3 +1,10 @@
+# 1.7.0 Alpha 4
+* Fix reporting of memory host metrics for containerized hosts. PR #353
+* Detect Kubernetes containers as containers in probes-rs library.
+  Commit c58af6c4d72019427ef209112ad6920a9159c0de.
+* Detect Kubernetes containers as containers for `running_in_container`
+  config option. Commit c58af6c4d72019427ef209112ad6920a9159c0de.
+
 # 1.6.4
 * Overwrite message for Phoenix.ActionClauseError. PR #355
 
