@@ -82,10 +82,30 @@ defmodule Appsignal.ErrorHandler do
                                     {:pid, pid},
                                     {:registered_name, name},
                                     {:error_info, {_kind, exception, stack}} | _], _linked]) do
-    msg = "Process #{crash_name(pid, name)} terminating"
-    stacktrace = extract_stacktrace(exception) || stack
-    {reason, message} = extract_reason_and_message(exception, msg)
-    {origin, reason, message, Backtrace.from_stacktrace(stacktrace), nil}
+    exception = exception |> remap_exception()
+    case exception |> skip_exception?() do
+      true ->
+        :nomatch
+      false ->
+        msg = "Process #{crash_name(pid, name)} terminating"
+        stacktrace = extract_stacktrace(exception) || stack
+        {reason, message} = extract_reason_and_message(exception, msg)
+        {origin, reason, message, Backtrace.from_stacktrace(stacktrace), nil}
+    end
+  end
+
+  defp remap_exception(exception) do
+    Application.get_env(:appsignal, :config)[:error_mappers]
+    |> Enum.reduce(exception, fn reducer, exception ->
+      reducer.(exception)
+    end)
+  end
+
+  defp skip_exception?(exception) do
+    Application.get_env(:appsignal, :config)[:error_filters]
+    |> Enum.any?(fn reducer ->
+      reducer.(exception)
+    end)
   end
 
   defp extract_stacktrace({_, stacktrace}) do

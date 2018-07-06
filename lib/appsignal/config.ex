@@ -9,6 +9,8 @@ defmodule Appsignal.Config do
     endpoint: "https://push.appsignal.com",
     diagnose_endpoint: "https://appsignal.com/diag",
     env: :dev,
+    error_filters: [],
+    error_mappers: [],
     filter_parameters: [],
     filter_session_data: [],
     ignore_actions: [],
