@@ -97,14 +97,14 @@ defmodule Appsignal.ErrorHandler do
   defp remap_exception(exception) do
     Application.get_env(:appsignal, :config)[:error_mappers]
     |> Enum.reduce(exception, fn reducer, exception ->
-      reducer.(exception)
+      reducer.remap_exception(exception)
     end)
   end
 
   defp skip_exception?(exception) do
     Application.get_env(:appsignal, :config)[:error_filters]
     |> Enum.any?(fn reducer ->
-      reducer.(exception)
+      reducer.skip_exception?(exception)
     end)
   end
 
